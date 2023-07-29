@@ -1,0 +1,10 @@
+venv/
+images/
+notebooks/
+*.DS_Store
+*.log
+*src/.ipynb_checkpoints
+*.ipynb_checkpoints
+*src/__pycache__/*
+.hypothesis/
+data/Inspira Psychiatry Residency_Patient logs.xlsx
