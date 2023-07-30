@@ -1,4 +1,4 @@
-########## data_preparation.py ##########
+########## data_prep.py ##########
 
 
 ### LIBRARY/DATA IMPORT ###   ### LIBRARY/DATA IMPORT ###   ### LIBRARY/DATA IMPORT ###   
@@ -19,8 +19,9 @@ def load_pdf_data_from_disk(file_name: str) -> str:
         file_name (str): name of the PDF file (not the path, just the name)
 
     Returns:
-        string: 
+        str: Extracted text content from the specified PDF file.
     """
+    
     with open(DATA_DIR / file_name, "rb") as file:
         # Initialize PDF reader
         pdf_reader = PyPDF2.PdfReader(file)
@@ -38,7 +39,18 @@ def load_pdf_data_from_disk(file_name: str) -> str:
 
 import re
 
-def clean_and_format_text(raw_text):
+def clean_and_format_text(raw_text: str) -> str:
+    """
+    Cleans and formats the provided raw text. This involves removing excessive whitespace, 
+    irregular characters, fixing known text issues, and reformatting the text for better presentation.
+
+    Args:
+        raw_text (str): The raw text string that needs to be cleaned and formatted.
+
+    Returns:
+        str: The cleaned and formatted version of the input text.
+    """
+
     # Remove excessive whitespace and newline characters
     cleaned_text = re.sub(r'\n+', '\n', raw_text)
     cleaned_text = re.sub(r'\s+', ' ', cleaned_text)

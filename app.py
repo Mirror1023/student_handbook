@@ -1,4 +1,4 @@
-#app22.py
+#app.py
 
 from flask import Flask, render_template_string, request, jsonify
 import os
@@ -17,7 +17,7 @@ from langchain.chains import RetrievalQA
 app = Flask(__name__)
 
 # Load data and prepare env
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "sk-HIDDEN"
 
 loader = TextLoader("data/clean_pdf_text.txt")
 index = VectorstoreIndexCreator().from_loaders([loader])
@@ -34,14 +34,15 @@ qa_chain = RetrievalQA.from_chain_type(llm, retriever=vectorstore.as_retriever()
 @app.route('/', methods=['GET', 'POST'])
 def index():
     answer = ""
+    question = ""
     if request.method == 'POST':
         question = request.form.get('question')
         print(question)
         response = qa_chain({"query": question})
         print(response)
-        answer = response.get('result', 'No answer found.')
+        answer = response.get('result', 'I am sorry. No answer found.')
 
-    return render_template_string(open("template.html", "r").read(), answer=answer)
+    return render_template_string(open("template.html", "r").read(), answer=answer, question=question)
 
 if __name__ == "__main__":
     app.run(debug=True)
