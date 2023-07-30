@@ -66,7 +66,6 @@ def clean_and_format_text(raw_text):
     paragraphs = cleaned_text.split('\n')
     formatted_text = "\n\n".join(paragraphs)
     
-    
     return formatted_text
 
 
