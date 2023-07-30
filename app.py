@@ -16,16 +16,14 @@ from langchain.chains import RetrievalQA
 # Initialize Flask app
 app = Flask(__name__)
 
-# Load and prepare data
-text = load_pdf_data_from_disk(file_name='Inspira Psych Handbook 2023 -2024 edited.pdf')
-os.environ["OPENAI_API_KEY"] = "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"
-clean_text = clean_and_format_text(text)
+# Load data and prepare env
+os.environ["OPENAI_API_KEY"] = "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"
 
-loader = TextLoader("data/clean_pdf_text")
+loader = TextLoader("data/clean_pdf_text.txt")
 index = VectorstoreIndexCreator().from_loaders([loader])
 data = loader.load()
 
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0)
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=10)
 all_splits = text_splitter.split_documents(data)
 vectorstore = Chroma.from_documents(documents=all_splits, embedding=OpenAIEmbeddings())
 
@@ -38,6 +36,7 @@ def index():
     answer = ""
     if request.method == 'POST':
         question = request.form.get('question')
+        print(question)
         response = qa_chain({"query": question})
         print(response)
         answer = response.get('result', 'No answer found.')
