@@ -10,3 +10,4 @@ The first series of exploratory data analysis on this dataset can be found in th
 The app.py file contains the Flask app. The template.html file has the code for the web app. There are some python files within the src folder which contain data loading and data cleaning functions.
 
 
+/Users/ghulamshah/Desktop/GitHub/student_handbook/images/PsychDept.png
